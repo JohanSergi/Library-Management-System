@@ -1,0 +1,125 @@
+<odoo>
+    <data>
+        <!-- books tree view -->
+        <record model="ir.ui.view" id="book_tree_view">
+            <field name="model">book.records</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="book_id"/>
+                    <field name="title"/>
+                    <field name="author"/>
+                    <field name="price"/>
+                    <field name="genre"/>
+                    <field name="publisher"/>
+                    <field name="language"/>
+                    <field name="total_copies"/>
+                    <field name="available_copies"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- user tree view -->
+        <record model="ir.ui.view" id="user_tree_view">
+            <field name="model">user.records</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="customer_id"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="address"/>
+                    <field name="books_taken"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- form view
+        <record>
+            <field></field>
+        </record> -->
+
+        <!--book window-->
+        <record model="ir.actions.act_window" id="lms_book_window">
+            <field name="name">Books</field>
+            <field name="res_model">book.records</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--user window -->
+        <record model="ir.actions.act_window" id="lms_user_window">
+            <field name="name">User Details</field>
+            <field name="res_model">user.records</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Library Management System" id="library_management_system.menu_root"/>
+
+        <menuitem name="Books" id="library_management_system.books" parent="library_management_system.menu_root"
+                  action="lms_book_window"/>
+        <menuitem name="User" id="library_management_system.user_registration"
+                  parent="library_management_system.menu_root" action="lms_user_window"/>
+
+        <!-- Transaction Line Tree inside Form -->
+        <record id="transaction_form_view" model="ir.ui.view">
+            <field name="name">library.transaction.form</field>
+            <field name="model">library.transaction</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_take_book" type="object" string="Take Book"
+                                class="btn-primary"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="action_return_book" type="object" string="Return Book"
+                                class="btn-secondary"
+                                attrs="{'invisible': [('state', '!=', 'taken')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,taken,returned"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="date_taken"/>
+                        </group>
+                        <notebook>
+                            <page string="Books">
+                                <field name="transaction_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="book_id"/>
+                                        <field name="available" readonly="1"/>
+                                        <field name="quantity"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view (optional, for list of transactions) -->
+        <record id="transaction_tree_view" model="ir.ui.view">
+            <field name="name">library.transaction.tree</field>
+            <field name="model">library.transaction</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="customer_id"/>
+                    <field name="date_taken"/>
+                     <field name="date_returned"/>
+                     <field name="due_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="transaction_action" model="ir.actions.act_window">
+            <field name="name">Transactions</field>
+            <field name="res_model">library.transaction</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="library_management_system.transactions" name="Transactions"
+                  parent="library_management_system.menu_root" action="transaction_action"/>
+
+
+    </data>
+</odoo>

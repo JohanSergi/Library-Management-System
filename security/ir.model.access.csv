@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_book_records,book.records,model_book_records,,1,1,1,1
+access_user_records,user.records,model_user_records,,1,1,1,1
+access_transaction,library.transaction,model_library_transaction,,1,1,1,1
+access_transaction_line,transaction.line,model_transaction_line,,1,1,1,1
