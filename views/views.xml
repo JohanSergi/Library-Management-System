@@ -78,6 +78,7 @@
                         <group>
                             <field name="customer_id"/>
                             <field name="date_taken"/>
+                            <field name="total_quantity" readonly="1"/>
                         </group>
                         <notebook>
                             <page string="Books">
