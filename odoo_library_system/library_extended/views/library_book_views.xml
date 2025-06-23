@@ -1,0 +1,91 @@
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Add Library Book Checkbox -->
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="is_library_book"/>
+            </xpath>
+
+            <xpath expr="//field[@name='responsible_id']" position="inside">
+                <field name="genre"/>
+            </xpath>
+
+            <!-- Rename Internal Reference to Book ID -->
+            <xpath expr="//field[@name='default_code']" position="before">
+                <attribute name="string">Book ID</attribute>
+            </xpath>
+
+            <!-- Rename Forecasted Quantity to Available Quantity -->
+            <xpath expr="//field[@name='virtual_available']" position="attributes">
+                <attribute name="string">Available Quantity</attribute>
+            </xpath>
+
+            <!-- Rename qty_available to Total Quantity -->
+            <xpath expr="//field[@name='qty_available']" position="attributes">
+                <attribute name="string">Total Quantity</attribute>
+            </xpath>
+
+            <!-- Add Library Book Author & Language-->
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="author"/>
+                <field name="language"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_library_book_tree" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Add Library Book Column -->
+            <xpath expr="//tree/field[@name='name']" position="before">
+                <field name="is_library_book"/>
+            </xpath>
+
+            <xpath expr="//tree/field[@name='responsible_id']" position="after">
+                <field name="genre"/>
+            </xpath>
+
+            <!-- Add Library Book Author & Language -->
+            <xpath expr="//tree/field[@name='default_code']" position="after">
+                <field name="author"/>
+                <field name="language"/>
+            </xpath>
+
+            <!-- Rename Internal Reference in Tree View -->
+            <xpath expr="//field[@name='default_code']" position="attributes">
+                <attribute name="string">Book ID</attribute>
+            </xpath>
+
+            <!-- Rename Forecasted Quantity in Tree View -->
+            <xpath expr="//field[@name='virtual_available']" position="attributes">
+                <attribute name="string">Available Quantity</attribute>
+            </xpath>
+
+            <!-- Rename qty_available in Tree View -->
+            <xpath expr="//field[@name='qty_available']" position="attributes">
+                <attribute name="string">Total Quantity</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_library_books" model="ir.actions.act_window">
+        <field name="name">Library Books</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_library_book', '=', True)]</field>
+    </record>
+
+    <!-- MENU -->
+    <menuitem id="menu_library_root" name="Library" sequence="10"/>
+    <menuitem id="menu_library_books" name="Books" parent="menu_library_root" action="action_library_books"/>
+</odoo>

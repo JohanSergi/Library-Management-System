@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_book_template_librarian,Book access for librarian,product.model_product_template,library_extended.group_library_librarian,1,1,1,1
+access_book_template_novel,Book access for staff novel,product.model_product_template,library_extended.group_library_staff_novel,1,1,1,0
+access_book_template_fantasy,Book access for staff fantasy,product.model_product_template,library_extended.group_library_staff_fantasy,1,1,1,0
+access_library_member_librarian,Member access for librarian,base.model_res_partner,library_extended.group_library_librarian,1,1,1,1
+access_library_member_novel,Member access for staff novel,base.model_res_partner,library_extended.group_library_staff_novel,1,0,0,0
+access_library_member_fantasy,Member access for staff fantasy,base.model_res_partner,library_extended.group_library_staff_fantasy,1,0,0,0
+access_transaction_librarian,Transaction access for librarian,library_extended.model_library_transaction,library_extended.group_library_librarian,1,1,1,1
+access_transaction_novel,Transaction access for staff novel,library_extended.model_library_transaction,library_extended.group_library_staff_novel,1,1,1,0
+access_transaction_fantasy,Transaction access for staff fantasy,library_extended.model_library_transaction,library_extended.group_library_staff_fantasy,1,1,1,0
+access_transaction_line_librarian,Transaction line access for librarian,library_extended.model_transaction_line,library_extended.group_library_librarian,1,1,1,1
+access_transaction_line_novel,Transaction line access for staff novel,library_extended.model_transaction_line,library_extended.group_library_staff_novel,1,1,1,0
+access_transaction_line_fantasy,Transaction line access for staff fantasy,library_extended.model_transaction_line,library_extended.group_library_staff_fantasy,1,1,1,0

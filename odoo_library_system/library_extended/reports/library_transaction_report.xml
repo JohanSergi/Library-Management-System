@@ -1,0 +1,33 @@
+<odoo>
+    <template id="report_transaction_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="doc">
+                    <h2>Transaction Report</h2>
+                    <p><strong>Customer:</strong> <t t-esc="doc.customer_id.name"/></p>
+                    <p><strong>Date Taken:</strong> <t t-esc="doc.date_taken"/></p>
+                    <p><strong>Due Date:</strong> <t t-esc="doc.due_date"/></p>
+                    <p><strong>Date Returned:</strong> <t t-esc="doc.date_returned"/></p>
+                    <p><strong>Fine:₹</strong> <t t-esc="doc.fine_amount"/></p>
+
+                    <table class="table table-sm mt32">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.transaction_line_ids" t-as="line">
+                                <tr>
+                                    <td><t t-esc="line.book_id.name"/></td>
+                                    <td><t t-esc="line.quantity"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

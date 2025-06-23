@@ -1,0 +1,11 @@
+<odoo>
+    <report
+        id="action_report_library_transaction"
+        model="library.transaction"
+        string="Transaction Receipt"
+        report_type="qweb-pdf"
+        name="library_extended.report_transaction_document"
+        file="library_extended.report_transaction_document"
+        print_report_name="'Transaction Receipt - %s' % (object.customer_id.name)"
+    />
+</odoo>

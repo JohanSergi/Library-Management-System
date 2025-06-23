@@ -1,0 +1,61 @@
+<odoo>
+    <!-- Book Rules -->
+    <record id="rule_book_all_librarian" model="ir.rule">
+        <field name="name">Librarian Access to All Books</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_librarian'))]"/>
+    </record>
+
+    <record id="rule_book_novel_staff" model="ir.rule">
+        <field name="name">Staff Novel Access</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="domain_force">[('genre','=','novel')]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_staff_novel'))]"/>
+    </record>
+
+    <record id="rule_book_fantasy_staff" model="ir.rule">
+        <field name="name">Staff Fantasy Access</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="domain_force">[('genre','=','fantasy')]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_staff_fantasy'))]"/>
+    </record>
+
+    <!-- Transaction Line Rules -->
+    <record id="rule_transaction_line_novel" model="ir.rule">
+        <field name="name">Staff Novel Transaction Line</field>
+        <field name="model_id" ref="library_extended.model_transaction_line"/>
+        <field name="domain_force">[('book_id.genre','=','novel')]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_staff_novel'))]"/>
+    </record>
+
+    <record id="rule_transaction_line_fantasy" model="ir.rule">
+        <field name="name">Staff Fantasy Transaction Line</field>
+        <field name="model_id" ref="library_extended.model_transaction_line"/>
+        <field name="domain_force">[('book_id.genre','=','fantasy')]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_staff_fantasy'))]"/>
+    </record>
+
+    <!-- Library Transaction Rules (based on line.genre) -->
+    <record id="rule_transaction_novel" model="ir.rule">
+        <field name="name">Staff Novel Transaction</field>
+        <field name="model_id" ref="library_extended.model_library_transaction"/>
+        <field name="domain_force">[
+            '|',
+            ('transaction_line_ids.book_id.genre','=','novel'),
+            ('transaction_line_ids','=',False)
+        ]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_staff_novel'))]"/>
+    </record>
+
+    <record id="rule_transaction_fantasy" model="ir.rule">
+        <field name="name">Staff Fantasy Transaction</field>
+        <field name="model_id" ref="library_extended.model_library_transaction"/>
+        <field name="domain_force">[
+            '|',
+            ('transaction_line_ids.book_id.genre','=','fantasy'),
+            ('transaction_line_ids','=',False)
+        ]</field>
+        <field name="groups" eval="[(4, ref('library_extended.group_library_staff_fantasy'))]"/>
+    </record>
+</odoo>

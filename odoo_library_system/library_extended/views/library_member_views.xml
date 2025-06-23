@@ -1,0 +1,60 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_library_member_form" model="ir.ui.view">
+        <field name="name">library.member.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="is_library_member"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="open_member_transactions"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-book">
+                    <field name="transaction_count" widget="statinfo" string="Transactions"/>
+                </button>
+            </xpath>
+            <xpath expr="//div[@name='button_box']/button[contains(@name, 'invoices')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
+            <xpath expr="//div[@name='button_box']/button[@name='action_view_sale_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="books_due"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--     Tree View -->
+    <record id="view_library_member_tree" model="ir.ui.view">
+        <field name="name">library.member.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="is_library_member"/>
+            </xpath>
+            <xpath expr="//tree" position="inside">
+                <field name="books_due"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_library_members" model="ir.actions.act_window">
+        <field name="name">Library Members</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_library_member', '=', True)]</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_library_members" name="Members"
+              parent="menu_library_root"
+              action="action_library_members"/>
+</odoo>
